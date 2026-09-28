@@ -4,7 +4,7 @@ require('dotenv').config();
 const pool = require('./db');
 
 const app = express();
-const PORT = process.env.PORT || 3200;
+
 
 app.use(cors());
 app.use(express.json());
@@ -129,6 +129,12 @@ app.delete('/api/customers/:id', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Mini CRM backend running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  const PORT = process.env.PORT || 3200;
+
+  app.listen(PORT, () => {
+    console.log(`Mini CRM backend running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
